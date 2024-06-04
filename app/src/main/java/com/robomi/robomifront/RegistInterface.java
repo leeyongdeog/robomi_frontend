@@ -11,4 +11,8 @@ public interface RegistInterface {
     @Multipart
     @POST("api/manager/addManager")
     Call<Void> addManager(@Part MultipartBody.Part file, @Part("name")RequestBody name);
+
+    @Multipart
+    @POST("api/object/addObject")
+    Call<Void> addObject(@Part MultipartBody.Part file, @Part("name")RequestBody name);
 }

@@ -108,8 +108,8 @@ public class RegistActivity extends AppCompatActivity {
         }
     }
 
-    private void captureAndUpload(){
-        if(imageCapture == null){
+    private void captureAndUpload() {
+        if (imageCapture == null) {
             Toast.makeText(getApplicationContext(), "카메라 오류.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -118,38 +118,25 @@ public class RegistActivity extends AppCompatActivity {
 
         ImageCapture.OutputFileOptions outOptions = new ImageCapture.OutputFileOptions.Builder(photoFile).build();
 
-        imageCapture.takePicture(outOptions,ContextCompat.getMainExecutor(RegistActivity.this),
+        imageCapture.takePicture(outOptions, ContextCompat.getMainExecutor(RegistActivity.this),
                 new ImageCapture.OnImageSavedCallback() {
                     @Override
                     public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {
                         // insert your code here.
                         Log.d("onImageSavedgetSavedUri", String.valueOf(outputFileResults.getSavedUri()));
-                        Toast.makeText(getApplicationContext(), "찍혔어요",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "찍혔어요", Toast.LENGTH_LONG).show();
                         uploadImage(photoFile);
                     }
+
                     @Override
                     public void onError(ImageCaptureException error) {
                         // insert your code here.
                         Log.d(" Camerror", String.valueOf(error));
-                        Toast.makeText(getApplicationContext(), "에러났어요",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "에러났어요", Toast.LENGTH_LONG).show();
 
                     }
                 }
         );
-
-
-//        imageCapture.takePicture(outOptions, ContextCompat.getMainExecutor(this),
-//                new ImageCapture.OnImageSavedCallback() {
-//                    @Override
-//                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-//                        uploadImage(photoFile);
-//                    }
-//
-//                    @Override
-//                    public void onError(@NonNull ImageCaptureException exception) {
-//                        Toast.makeText(getApplicationContext(), "캡쳐 실패.", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
     }
 
     private void uploadImage(File photoFile){
@@ -167,7 +154,7 @@ public class RegistActivity extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient.Builder().build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.123.10:8080/")
+                .baseUrl("http://192.168.123.13:8080/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
