@@ -44,6 +44,18 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha26"
     implementation "androidx.camera:camera-extensions:1.0.0-alpha26"
 
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+
+    // Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    // Retrofit2 Converter for JSON (Gson)
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // OkHttp (Retrofit uses OkHttp for HTTP requests)
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
+    // OkHttp Logging Interceptor (Optional, for logging HTTP requests/responses)
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 }

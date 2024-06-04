@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -16,6 +17,8 @@ import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -42,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         reqPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
                 isGranted -> {
                     if(isGranted){
-                        startCamera();
+//                        startCamera();
                     }
                     else{
                         Toast.makeText(getApplicationContext(), "Permission error", Toast.LENGTH_SHORT).show();
@@ -50,26 +53,26 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-            startCamera();
+//            startCamera();
         }
         else{
             reqPermissionLauncher.launch(android.Manifest.permission.CAMERA);
         }
 
-        timeHandler = new Handler();
-        timeHandler.postDelayed(() -> {
-            Toast.makeText(getApplicationContext(), "인증이 실패했습니다.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }, timeAttack);
+//        timeHandler = new Handler();
+//        timeHandler.postDelayed(() -> {
+//            Toast.makeText(getApplicationContext(), "인증이 실패했습니다.", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }, timeAttack);
 
         //----------------------------------------
         // haarcascade, face recognition 으로 관리자 리스트와 얼굴대조
         boolean isMatched = true;
 
         if(isMatched){
-            timeHandler.removeCallbacksAndMessages(null);
+//            timeHandler.removeCallbacksAndMessages(null);
             Toast.makeText(getApplicationContext(), "안녕하세요 관리자님.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(intent);
@@ -105,5 +108,34 @@ public class LoginActivity extends AppCompatActivity {
             }
         }, ContextCompat.getMainExecutor(this));
     }
+
+//    private void startCamera() {
+//        final ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+//        cameraProviderFuture.addListener(() -> {
+//            try {
+//                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
+//
+//                if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+//                    bindPreview(cameraProvider);
+//                } else {
+//                    // 현재 라이프사이클 상태가 유효하지 않으면 로그 출력 또는 예외 처리
+//                    Log.e("LoginActivity", "Cannot bind camera. Activity is not in a valid state.");
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }, ContextCompat.getMainExecutor(this));
+//    }
+//
+//    private void bindPreview(ProcessCameraProvider cameraProvider) {
+//        Preview preview = new Preview.Builder().build();
+//        CameraSelector cameraSelector = new CameraSelector.Builder()
+//                .requireLensFacing(CameraSelector.DEFAULT_FRONT_CAMERA)
+//                .build();
+//
+//        preview.setSurfaceProvider(findViewById(R.id.camView).getSurfaceProvider());
+//
+//        cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview);
+//    }
 }
 //test
