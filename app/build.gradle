@@ -58,4 +58,6 @@ dependencies {
 
     // OkHttp Logging Interceptor (Optional, for logging HTTP requests/responses)
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+
+    implementation 'com.squareup.okio:okio:2.8.0'
 }
