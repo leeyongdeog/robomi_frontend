@@ -46,8 +46,8 @@ public class VideoActivity extends AppCompatActivity {
     private TextureView.SurfaceTextureListener surfaceTextureListener;
     private boolean isSendSound = false;
 
-    private static final String wsVideoPath = "ws://192.168.123.13:8080/video";
-    private static final String wsAudioPath = "ws://192.168.123.13:8080/audio";
+    private static final String wsVideoPath = "ws://192.168.123.10:8080/video";
+    private static final String wsAudioPath = "ws://192.168.123.10:8080/audio";
 
     private OkHttpClient videoClient;
     private OkHttpClient audioClient;
@@ -225,7 +225,7 @@ public class VideoActivity extends AppCompatActivity {
     private void getCameraCount(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://192.168.123.13:8080/api/streaming/getCameraCount")
+                .url(BuildConfig.SERVER_URL + "api/streaming/getCameraCount")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -272,9 +272,8 @@ public class VideoActivity extends AppCompatActivity {
     private void callStreamingVideo(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://192.168.123.13:8080/api/streaming/startVideoWebsocket")
+                .url(BuildConfig.SERVER_URL + "api/streaming/startVideoWebsocket")
                 .build();
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -294,7 +293,7 @@ public class VideoActivity extends AppCompatActivity {
     private void callStreamingAudio(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://192.168.123.13:8080/api/streaming/startAudioWebsocket")
+                .url(BuildConfig.SERVER_URL + "api/streaming/startAudioWebsocket")
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -317,7 +316,7 @@ public class VideoActivity extends AppCompatActivity {
     private void callStopStreamingAudio(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://192.168.123.13:8080/api/streaming/stopAudioWebsocket")
+                .url(BuildConfig.SERVER_URL + "api/streaming/stopAudioWebsocket")
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
