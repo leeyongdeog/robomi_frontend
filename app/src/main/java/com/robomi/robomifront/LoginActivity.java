@@ -23,6 +23,7 @@ import androidx.lifecycle.LifecycleOwner;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
+import org.opencv.android.OpenCVLoader;
 
 public class LoginActivity extends AppCompatActivity {
     private PreviewView prevView;
