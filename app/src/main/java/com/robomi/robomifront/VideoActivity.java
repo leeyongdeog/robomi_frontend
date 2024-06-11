@@ -1,6 +1,7 @@
 package com.robomi.robomifront;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.TextureView;
 import android.view.View;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import org.json.JSONObject;
 
@@ -42,11 +46,13 @@ public class VideoActivity extends AppCompatActivity {
     private TextureView.SurfaceTextureListener surfaceTextureListener;
     private boolean isSendSound = false;
 
-    private static final String wsVideoPath = "ws://192.168.123.13:8080/video";
-    private static final String wsAudioPath = "ws://192.168.123.13:8080/audio";
+    private static final String wsVideoPath = "ws://192.168.123.10:8080/video";
+    private static final String wsAudioPath = "ws://192.168.123.10:8080/audio";
 
     private OkHttpClient videoClient;
+    private OkHttpClient audioClient;
     private WebSocket videoSocket;
+    private WebSocket audioSocket;
 
     private Bitmap currentFrame;
 
@@ -56,12 +62,14 @@ public class VideoActivity extends AppCompatActivity {
 
     LinearLayout camsel_layout;
 
+    AudioUtil audioUtil;
+
     private final class VideoSocketListener extends WebSocketListener{
         @Override
         public void onOpen(WebSocket webSocket, Response response){
             runOnUiThread(() -> {
                 System.out.println("Android -> JAVA Websocket connect");
-                streamingVideo();
+                callStreamingVideo();
             });
         }
         @Override
@@ -110,7 +118,49 @@ public class VideoActivity extends AppCompatActivity {
             });
         }
     }
+    private final class AudioSocketListener extends WebSocketListener{
+        @Override
+        public void onOpen(WebSocket webSocket, Response response){
+            runOnUiThread(() -> {
+                System.out.println("Audio Websocket connect");
+            });
+        }
+        @Override
+        public void onMessage(WebSocket webSocket, String msg){
+            runOnUiThread(() -> {
+                try{
 
+                }catch (Exception e){
+
+                }
+
+            });
+        }
+        @Override
+        public void onMessage(WebSocket webSocket, ByteString bytes){
+            byte[] byteArray = bytes.toByteArray();
+            runOnUiThread(() -> {
+                try{
+
+                }catch (Exception e){
+
+                }
+
+            });
+        }
+        @Override
+        public void onClosing(WebSocket webSocket, int code, String reason){
+            runOnUiThread(() -> {
+                System.out.println("Audio Websocket closing reason: " + reason);
+            });
+        }
+        @Override
+        public void onFailure(WebSocket webSocket, Throwable t, Response response){
+            runOnUiThread(() -> {
+                System.out.println("Audio Websocket Connect Failed"+t+response);
+            });
+        }
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,11 +173,19 @@ public class VideoActivity extends AppCompatActivity {
                 .readTimeout(3, TimeUnit.SECONDS)
                 .build();
 
+        audioClient = new OkHttpClient.Builder()
+                .readTimeout(3, TimeUnit.SECONDS)
+                .build();
+
         Request request = new Request.Builder().url(wsVideoPath).build();
         VideoSocketListener listener = new VideoSocketListener();
         videoSocket = videoClient.newWebSocket(request, listener);
 
+        Request audio_request = new Request.Builder().url(wsAudioPath).build();
+        AudioSocketListener audio_listener = new AudioSocketListener();
+        audioSocket = audioClient.newWebSocket(audio_request, audio_listener);
 
+        audioUtil = new AudioUtil();
 
         gotoMenuBtn = (Button) findViewById(R.id.video_gotoMenuBtn);
         gotoMenuBtn.setOnClickListener(new View.OnClickListener() {
@@ -143,13 +201,17 @@ public class VideoActivity extends AppCompatActivity {
         sendSoundBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isSendSound) {
-                    sendSoundBtn.setText("음성송출 시작");
-                    isSendSound = false;
-                }
-                else{
+                if(!isSendSound) {
                     sendSoundBtn.setText("음성송출 종료");
                     isSendSound = true;
+                    callStreamingAudio(); // 음성받기
+                    gatheringAudio(); // 음성보내기
+                }
+                else{
+                    sendSoundBtn.setText("음성송출 시작");
+                    isSendSound = false;
+                    callStopStreamingAudio();
+                    stopGatheringAudio();
                 }
             }
         });
@@ -158,37 +220,12 @@ public class VideoActivity extends AppCompatActivity {
         caminfo_txt = (TextView) findViewById(R.id.video_cam_txt);
         camsel_layout = (LinearLayout) findViewById(R.id.video_camsel_layout);
         getCameraCount();
-
-
-        surfaceTextureListener = new TextureView.SurfaceTextureListener() {
-            @Override
-            public void onSurfaceTextureAvailable(@NonNull SurfaceTexture surfaceTexture, int i, int i1) {
-                // Backend에서 수신받은 frame을 그리는곳
-                // 백그라운드 스레드에서 영상 프레임을 받아오는 작업을 수행한다고 가정
-
-            }
-
-            @Override
-            public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture surfaceTexture, int i, int i1) {
-
-            }
-
-            @Override
-            public boolean onSurfaceTextureDestroyed(@NonNull SurfaceTexture surfaceTexture) {
-                return false;
-            }
-
-            @Override
-            public void onSurfaceTextureUpdated(@NonNull SurfaceTexture surfaceTexture) {
-
-            }
-        };
     }
 
     private void getCameraCount(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://192.168.123.13:8080/api/streaming/getCameraCount")
+                .url(BuildConfig.SERVER_URL + "api/streaming/getCameraCount")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -232,12 +269,11 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
     }
-    private void streamingVideo(){
+    private void callStreamingVideo(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://192.168.123.13:8080/api/streaming/startVideoWebsocket")
+                .url(BuildConfig.SERVER_URL + "api/streaming/startVideoWebsocket")
                 .build();
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -254,7 +290,68 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
     }
+    private void callStreamingAudio(){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(BuildConfig.SERVER_URL + "api/streaming/startAudioWebsocket")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                // 실패시 처리
+                System.out.println("Audio Streaming Start Call FAILED: "+ e);
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                }
+                // 응답 처리
+                System.out.println("Audio Streaming Start Call SUCCESS");
+            }
+        });
+    }
+    private void callStopStreamingAudio(){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(BuildConfig.SERVER_URL + "api/streaming/stopAudioWebsocket")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                // 실패시 처리
+                System.out.println("Audio Streaming Stop Call FAILED: "+ e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                }
+                // 응답 처리
+                System.out.println("Audio Streaming Stop Call SUCCESS");
+            }
+        });
+    }
+
+    private void gatheringAudio(){
+        try{
+            audioUtil.gatheringAudio(VideoActivity.this, audioSocket);
+        } catch(Exception e){
+            Log.e("AUDIO_UTIL", "Error Audio Util");
+        }
+
+    }
+    private void stopGatheringAudio(){
+        try{
+            audioUtil.stopGatheringAudio();
+        } catch (Exception e){
+            Log.e("AUDIO_UTIL", "Error Audio Util stop");
+        }
+    }
     private void drawFrame(){
         if(currentFrame != null && streamingView.isAvailable()){
             Canvas canvas = streamingView.lockCanvas();
@@ -280,7 +377,11 @@ public class VideoActivity extends AppCompatActivity {
     protected void onDestroy(){
         super.onDestroy();
         if(videoSocket != null){
-            videoSocket.close(1000, "Destroy Websocket");
+            videoSocket.close(1000, "Destroy Video Websocket");
+        }
+        if(audioSocket != null){
+            stopGatheringAudio();
+            audioSocket.close(1000, "Destroy Audio Websocket");
         }
     }
     @Override

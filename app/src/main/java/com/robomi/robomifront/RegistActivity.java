@@ -154,7 +154,7 @@ public class RegistActivity extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient.Builder().build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.123.13:8080/")
+                .baseUrl(BuildConfig.SERVER_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
