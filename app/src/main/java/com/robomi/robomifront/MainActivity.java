@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         //--------------------------
         // Login session 확인
-        String url = BuildConfig.SERVER_URL;
-        System.out.println("==================================="+url);
         //--------------------------
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
