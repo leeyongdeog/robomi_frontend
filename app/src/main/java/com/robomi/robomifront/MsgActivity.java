@@ -15,15 +15,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MsgActivity extends AppCompatActivity {
     private LinearLayout imgLayout, listLayout;
-    private Button btnVideo;
+    private Button btnVideo, btnBack;
     private ImageView imgView;
     private TextView txtDate;
     private LinearLayout linearScroll;
+    private static ArrayList<MessageData> captureList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +52,7 @@ public class MsgActivity extends AppCompatActivity {
         imgView = (ImageView) findViewById(R.id.msgImg);
         txtDate = (TextView) findViewById(R.id.imgDateText);
         linearScroll = (LinearLayout) findViewById(R.id.linearScroll);
+        btnBack = (Button) findViewById(R.id.msg_gotoMenu);
 
         imgLayout.setVisibility(View.INVISIBLE);
         changeLayoutWeight(imgLayout, 0);
@@ -45,11 +60,26 @@ public class MsgActivity extends AppCompatActivity {
 
         //----------------------------------
         // DB에서 메세지 목록 가져오기 최신 20개씩
+        callCaptureList();
         //----------------------------------
 
-        ArrayList<String> test = new ArrayList<>();
-        test.add("1");test.add("1");test.add("1");test.add("1");test.add("1");
-        MakeList(test);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MsgActivity.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MsgActivity.this, VideoActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     @Override
@@ -69,8 +99,8 @@ public class MsgActivity extends AppCompatActivity {
         view.setLayoutParams(param);
     }
 
-    private void MakeList(ArrayList<String> datas){
-        for(int i=0; i<10; ++i){
+    private void MakeList(ArrayList<MessageData> datas){
+        for(MessageData data : datas){
             LinearLayout row = new LinearLayout(this);
             LinearLayout.LayoutParams rowParam = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -90,7 +120,8 @@ public class MsgActivity extends AppCompatActivity {
 
             ImageView thumb = new ImageView(this);
             thumb.setLayoutParams(iconParam);
-            String imgPath = "https://picsum.photos/50/50";
+            String imgPath = data.getImgPath();
+
             Glide.with(this).load(imgPath).into(thumb);
 
             TextView date = new TextView(this);
@@ -99,7 +130,7 @@ public class MsgActivity extends AppCompatActivity {
                     6
             );
             date.setLayoutParams(textParam);
-            date.setText("0000/00/00 00:00:00");
+            date.setText(data.getUpdateDate());
 
 
             row.addView(icon);
@@ -114,11 +145,54 @@ public class MsgActivity extends AppCompatActivity {
                     imgLayout.setVisibility(View.VISIBLE);
                     changeLayoutWeight(imgLayout, 4);
                     changeLayoutWeight(listLayout, 5);
-                    String path = "https://picsum.photos/300/300";
-                    Glide.with(MsgActivity.this).load(path).into(imgView);
-                    txtDate.setText("2024/00/00 00:00:00");
+                    String path = data.getImgPath();
+                    GlideUrl glideUrl = new GlideUrl(path, new LazyHeaders.Builder()
+                            .addHeader("Authorization", "your-auth-token")
+                            .build());
+                    Glide.with(MsgActivity.this).load(glideUrl).into(imgView);
+                    txtDate.setText(data.getUpdateDate());
                 }
             });
         }
+    }
+
+    private void callCaptureList(){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(BuildConfig.SERVER_URL + "api/capture/allCaptures")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                }
+                String responseBody = response.body().string();
+                Gson gson = new Gson();
+                Type itemListType = new TypeToken<List<MessageData>>(){}.getType();
+                captureList = gson.fromJson(responseBody, itemListType);
+
+                for(MessageData data : captureList){
+                    System.out.println("seq: "+data.getSeq());
+                    System.out.println("name: "+data.getName());
+                    System.out.println("type: "+data.getStatus());
+                    System.out.println("imgPath: "+data.getImgPath());
+                    System.out.println("updateDate: "+data.getUpdateDate());
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MakeList(captureList);
+                    }
+                });
+            }
+        });
     }
 }
