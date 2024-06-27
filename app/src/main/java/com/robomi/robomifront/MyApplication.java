@@ -23,14 +23,29 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MyApplication extends Application {
+public class MyApplication extends Application implements WebsocketMessageListener{
     private CascadeClassifier faceCascade;
     private String cascadePath;
     private List<ManagerData> managerList;
+    private MessageWebsocketHandler msgWsHandler;
+    private String messageWsUrl = "ws://192.168.123.122:8080/msg";
+
+    public MessageWebsocketHandler getMsgWsHandler(){
+        return msgWsHandler;
+    }
+
+    @Override
+    public void onMessageReceived(String message) {
+        Log.d("myLog", "received: "+message);
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        msgWsHandler = new MessageWebsocketHandler();
+        msgWsHandler.setMessageListener(this);
+        msgWsHandler.connect(messageWsUrl);
 
         if(OpenCVLoader.initDebug()){
             loadHaarCascade();
@@ -40,6 +55,12 @@ public class MyApplication extends Application {
         else{
             Log.d("myLog", "OpenCV Load Failed!!");
         }
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        if(msgWsHandler != null) msgWsHandler.disconnect();
     }
 
     private void loadHaarCascade(){

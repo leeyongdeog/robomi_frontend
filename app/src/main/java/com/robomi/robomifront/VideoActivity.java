@@ -1,15 +1,11 @@
 package com.robomi.robomifront;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.SurfaceTexture;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,11 +15,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import org.json.JSONObject;
 
@@ -38,7 +31,6 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
-import okio.Timeout;
 
 public class VideoActivity extends AppCompatActivity {
     TextureView streamingView;
@@ -46,8 +38,8 @@ public class VideoActivity extends AppCompatActivity {
     private TextureView.SurfaceTextureListener surfaceTextureListener;
     private boolean isSendSound = false;
 
-    private static final String wsVideoPath = "ws://192.168.123.10:8080/video";
-    private static final String wsAudioPath = "ws://192.168.123.10:8080/audio";
+    private static final String wsVideoPath = "ws://192.168.123.122:8080/video";
+    private static final String wsAudioPath = "ws://192.168.123.122:8080/audio";
 
     private OkHttpClient videoClient;
     private OkHttpClient audioClient;
@@ -81,11 +73,17 @@ public class VideoActivity extends AppCompatActivity {
                     String frameStr = jsonObject.getString("frameData");
                     byte[] decodeByte = Base64.decode(frameStr, Base64.NO_WRAP);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decodeByte, 0, decodeByte.length);
+                    Log.d("myLog","decodeByte: " + decodeByte);
+                    Log.d("myLog","bitmap: " + bitmap);
                     if(bitmap != null){
                         runOnUiThread(() -> {
                             currentFrame = bitmap;
                             drawFrame();
                         });
+                    }
+                    else{
+                        Log.d("myLog","decodeByte: " + decodeByte);
+                        Log.d("myLog","bitmap: " + bitmap);
                     }
                 }catch (Exception e){
 
@@ -93,18 +91,7 @@ public class VideoActivity extends AppCompatActivity {
 
             });
         }
-        @Override
-        public void onMessage(WebSocket webSocket, ByteString bytes){
-            byte[] byteArray = bytes.toByteArray();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            if(bitmap != null){
-                runOnUiThread(() -> {
-                    currentFrame = bitmap;
-                    drawFrame();
-                });
-            }
 
-        }
         @Override
         public void onClosing(WebSocket webSocket, int code, String reason){
             runOnUiThread(() -> {

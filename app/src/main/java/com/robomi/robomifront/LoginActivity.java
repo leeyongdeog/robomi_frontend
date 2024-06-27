@@ -132,9 +132,9 @@ public class LoginActivity extends AppCompatActivity {
         }, ContextCompat.getMainExecutor(this));
     }
 
-    private boolean checkManagerFace(){
-
-    }
+//    private boolean checkManagerFace(){
+//
+//    }
 
 }
 //test

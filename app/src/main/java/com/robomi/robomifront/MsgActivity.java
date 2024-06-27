@@ -159,7 +159,7 @@ public class MsgActivity extends AppCompatActivity {
     private void callCaptureList(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(BuildConfig.SERVER_URL + "api/capture/allCaptures")
+                .url(BuildConfig.SERVER_URL + "api/capture/warningCaptures")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
