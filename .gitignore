@@ -1,0 +1,17 @@
+.gradle
+build
+
+local.properties
+
+*.log
+*.tmp
+*.DS_Store
+
+captures
+.externalNativeBuild
+.cxx
+*.apk
+output
+
+.idea
+
