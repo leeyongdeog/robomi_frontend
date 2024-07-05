@@ -15,6 +15,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,6 +63,7 @@ public class MessageWebsocketHandler extends WebSocketListener {
     public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
         super.onOpen(webSocket, response);
         System.out.println("Android -> JAVA Websocket connect");
+//        createNotificationChannel();
     }
 
     @Override
@@ -88,7 +90,7 @@ public class MessageWebsocketHandler extends WebSocketListener {
 
         try{
             JSONObject message = new JSONObject(text);
-            if(message.has("allert")){
+            if(message.has("alert")){
                 String alertJson = message.getString("alert");
                 JSONObject alert = new JSONObject(alertJson);
 
@@ -105,17 +107,21 @@ public class MessageWebsocketHandler extends WebSocketListener {
     }
 
 //    private void createNotification(String name, String status, long time){
+////        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 //        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//
 //        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
-//                .setSmallIcon()
+//                .setSmallIcon(R.drawable.icon)
 //                .setContentTitle("전시물 상태알림: "+name)
 //                .setContentText("상태이상: " + status + " at " + time)
 //                .setPriority(NotificationCompat.PRIORITY_HIGH)
 //                .setDefaults(Notification.DEFAULT_ALL)
 //                .setAutoCancel(true);
-//        notificationManager.notify(1, builder.build());
+////        notificationManager.notify(1, builder.build());
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//
 //    }
+//
 //
 //    private void createNotificationChannel() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

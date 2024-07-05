@@ -95,6 +95,7 @@ public class MyApplication extends Application implements WebsocketMessageListen
         }
     }
     private void loadManagerList(){
+        Log.d("myLog", BuildConfig.SERVER_URL + "api/manager/allManagers");
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(BuildConfig.SERVER_URL + "api/manager/allManagers")
@@ -103,6 +104,8 @@ public class MyApplication extends Application implements WebsocketMessageListen
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.d("myLog", BuildConfig.SERVER_URL + "api/manager/allManagers - fail");
+                Log.d("myLog", e.getMessage());
                 e.printStackTrace();
             }
 

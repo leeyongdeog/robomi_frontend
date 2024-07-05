@@ -73,8 +73,8 @@ public class VideoActivity extends AppCompatActivity {
                     String frameStr = jsonObject.getString("frameData");
                     byte[] decodeByte = Base64.decode(frameStr, Base64.NO_WRAP);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decodeByte, 0, decodeByte.length);
-                    Log.d("myLog","decodeByte: " + decodeByte);
-                    Log.d("myLog","bitmap: " + bitmap);
+//                    Log.d("myLog","decodeByte: " + decodeByte);
+//                    Log.d("myLog","bitmap: " + bitmap);
                     if(bitmap != null){
                         runOnUiThread(() -> {
                             currentFrame = bitmap;
@@ -82,8 +82,8 @@ public class VideoActivity extends AppCompatActivity {
                         });
                     }
                     else{
-                        Log.d("myLog","decodeByte: " + decodeByte);
-                        Log.d("myLog","bitmap: " + bitmap);
+                        Log.d("myLog","error - decodeByte: " + decodeByte);
+                        Log.d("myLog","error - bitmap: " + bitmap);
                     }
                 }catch (Exception e){
 
