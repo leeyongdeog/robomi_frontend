@@ -1,0 +1,4 @@
+/home/ubuntu2004/Android/Sdk/cmake/3.18.1/bin/ninja \
+  -C \
+  /home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/x86 \
+  opencv_jni_shared

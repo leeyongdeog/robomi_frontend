@@ -58,9 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         //----------------------------------------
         // Backend에 관리자 리스트 요청후 저장.
         MyApplication app = (MyApplication) getApplication();
-        faceCascade = app.getFaceCascade();
-        cascadePath = app.getCascadePath();
         managerDataList = app.getManagerList();
+
+
         //----------------------------------------
 
         prevView = (PreviewView) findViewById(R.id.camView);
@@ -92,9 +92,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //----------------------------------------
         // haarcascade, face recognition 으로 관리자 리스트와 얼굴대조
+
         boolean isMatched = true;
-
-
 
         if(isMatched){
             timeHandler.removeCallbacksAndMessages(null);

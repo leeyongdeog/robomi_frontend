@@ -38,8 +38,11 @@ public class VideoActivity extends AppCompatActivity {
     private TextureView.SurfaceTextureListener surfaceTextureListener;
     private boolean isSendSound = false;
 
+
     private static final String wsVideoPath = "ws://192.168.123.122:8080/video";
     private static final String wsAudioPath = "ws://192.168.123.122:8080/audio";
+//    private static final String wsVideoPath = "ws://54.180.210.34:8080/video";
+//    private static final String wsAudioPath = "ws://54.180.210.34:8080/audio";
 
     private OkHttpClient videoClient;
     private OkHttpClient audioClient;
@@ -60,12 +63,13 @@ public class VideoActivity extends AppCompatActivity {
         @Override
         public void onOpen(WebSocket webSocket, Response response){
             runOnUiThread(() -> {
-                System.out.println("Android -> JAVA Websocket connect");
+                Log.d("myLog","Android -> JAVA Websocket connect");
                 callStreamingVideo();
             });
         }
         @Override
         public void onMessage(WebSocket webSocket, String msg){
+            Log.d("myLog","onmessage");
             runOnUiThread(() -> {
                 try{
                     JSONObject jsonObject = new JSONObject(msg);
@@ -73,8 +77,8 @@ public class VideoActivity extends AppCompatActivity {
                     String frameStr = jsonObject.getString("frameData");
                     byte[] decodeByte = Base64.decode(frameStr, Base64.NO_WRAP);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decodeByte, 0, decodeByte.length);
-//                    Log.d("myLog","decodeByte: " + decodeByte);
-//                    Log.d("myLog","bitmap: " + bitmap);
+                    Log.d("myLog","decodeByte: " + decodeByte);
+                    Log.d("myLog","bitmap: " + bitmap);
                     if(bitmap != null){
                         runOnUiThread(() -> {
                             currentFrame = bitmap;

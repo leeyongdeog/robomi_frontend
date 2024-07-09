@@ -40,7 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ObjectRegistActivity extends AppCompatActivity {
     PreviewView regCam;
-    Button btnReg, confirmRegist;
+    Button confirmRegist;
     EditText regName;
     private ActivityResultLauncher<String> reqPermissionLauncher;
     private ImageCapture imageCapture;
@@ -62,16 +62,10 @@ public class ObjectRegistActivity extends AppCompatActivity {
         setContentView(R.layout.regist_activity);
         setTitle("REGIST OBJECT");
 
-        btnReg = (Button) findViewById(R.id.btnReg);
         confirmRegist = (Button) findViewById(R.id.confirmRegist);
         regName = (EditText) findViewById(R.id.regName);
 
-        btnReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "찰칵", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         confirmRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

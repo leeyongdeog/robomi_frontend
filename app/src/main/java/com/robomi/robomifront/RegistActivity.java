@@ -2,6 +2,7 @@ package com.robomi.robomifront;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,6 +28,8 @@ import androidx.lifecycle.LifecycleOwner;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import okhttp3.MediaType;
@@ -43,7 +46,7 @@ import retrofit2.http.Tag;
 
 public class RegistActivity extends AppCompatActivity {
     PreviewView regCam;
-    Button btnReg, confirmRegist;
+    Button confirmRegist;
     EditText regName;
     private ActivityResultLauncher<String> reqPermissionLauncher;
     private ImageCapture imageCapture;
@@ -66,17 +69,9 @@ public class RegistActivity extends AppCompatActivity {
         setContentView(R.layout.regist_activity);
         setTitle("REGIST");
 
-        btnReg = (Button) findViewById(R.id.btnReg);
         confirmRegist = (Button) findViewById(R.id.confirmRegist);
         regName = (EditText) findViewById(R.id.regName);
 
-        btnReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(getApplicationContext(), "찰칵", Toast.LENGTH_SHORT).show();
-            }
-        });
         confirmRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +103,28 @@ public class RegistActivity extends AppCompatActivity {
         }
     }
 
+    private void saveScaledImage(Bitmap imageBitmap) {
+        // 이미지 크기를 1/2로 줄임
+        int scaledWidth = imageBitmap.getWidth() / 2;
+        int scaledHeight = imageBitmap.getHeight() / 2;
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(imageBitmap, scaledWidth, scaledHeight, true);
+
+        // 저장할 파일 경로와 파일 이름 설정
+        File storageDir = getExternalFilesDir(null); // 저장할 디렉토리 경로를 앱의 외부 저장소로 설정
+        String imageFileName = "scaled_image.jpg";
+        File imageFile = new File(storageDir, imageFileName);
+
+        // 파일 저장
+        try {
+            FileOutputStream fos = new FileOutputStream(imageFile);
+            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos); // JPEG 포맷으로 압축하여 저장
+            fos.close();
+            Log.d("CameraActivity", "Scaled image saved: " + imageFile.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("CameraActivity", "Error saving scaled image: " + e.getMessage());
+        }
+    }
     private void captureAndUpload() {
         if (imageCapture == null) {
             Toast.makeText(getApplicationContext(), "카메라 오류.", Toast.LENGTH_SHORT).show();

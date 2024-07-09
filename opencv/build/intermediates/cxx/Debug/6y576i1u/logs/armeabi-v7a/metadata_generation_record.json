@@ -1,0 +1,184 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 21 min SDK version: armeabi-v7a",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1688609097
+  },
+  {
+    "level_": 0,
+    "message_": "rebuilding JSON /home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a/android_gradle_build.json due to:",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 16386441
+  },
+  {
+    "level_": 0,
+    "message_": "- expected json /home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a/android_gradle_build.json file is not present, will remove stale json folder",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 878091917
+  },
+  {
+    "level_": 0,
+    "message_": "- missing previous command file /home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a/metadata_generation_command.txt, will remove stale json folder",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1010648907
+  },
+  {
+    "level_": 0,
+    "message_": "- command changed from previous, will remove stale json folder",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1476239399
+  },
+  {
+    "level_": 0,
+    "message_": "removing stale contents from \u0027/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a\u0027",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 831139034
+  },
+  {
+    "level_": 0,
+    "message_": "created folder \u0027/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a\u0027",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -2118812594
+  },
+  {
+    "level_": 0,
+    "message_": "executing cmake /home/ubuntu2004/Android/Sdk/cmake/3.18.1/bin/cmake \\\n  -H/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper \\\n  -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n  -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n  -DCMAKE_SYSTEM_VERSION\u003d21 \\\n  -DANDROID_PLATFORM\u003dandroid-21 \\\n  -DANDROID_ABI\u003darmeabi-v7a \\\n  -DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a \\\n  -DANDROID_NDK\u003d/home/ubuntu2004/Android/Sdk/ndk/23.1.7779620 \\\n  -DCMAKE_ANDROID_NDK\u003d/home/ubuntu2004/Android/Sdk/ndk/23.1.7779620 \\\n  -DCMAKE_TOOLCHAIN_FILE\u003d/home/ubuntu2004/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake \\\n  -DCMAKE_MAKE_PROGRAM\u003d/home/ubuntu2004/Android/Sdk/cmake/3.18.1/bin/ninja \\\n  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/build/intermediates/cxx/Debug/6y576i1u/obj/armeabi-v7a \\\n  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/build/intermediates/cxx/Debug/6y576i1u/obj/armeabi-v7a \\\n  -DCMAKE_BUILD_TYPE\u003dDebug \\\n  -B/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a \\\n  -GNinja \\\n  -DANDROID_STL\u003dc++_shared\n",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 424118728
+  },
+  {
+    "level_": 0,
+    "message_": "/home/ubuntu2004/Android/Sdk/cmake/3.18.1/bin/cmake \\\n  -H/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper \\\n  -DCMAKE_SYSTEM_NAME\u003dAndroid \\\n  -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON \\\n  -DCMAKE_SYSTEM_VERSION\u003d21 \\\n  -DANDROID_PLATFORM\u003dandroid-21 \\\n  -DANDROID_ABI\u003darmeabi-v7a \\\n  -DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a \\\n  -DANDROID_NDK\u003d/home/ubuntu2004/Android/Sdk/ndk/23.1.7779620 \\\n  -DCMAKE_ANDROID_NDK\u003d/home/ubuntu2004/Android/Sdk/ndk/23.1.7779620 \\\n  -DCMAKE_TOOLCHAIN_FILE\u003d/home/ubuntu2004/Android/Sdk/ndk/23.1.7779620/build/cmake/android.toolchain.cmake \\\n  -DCMAKE_MAKE_PROGRAM\u003d/home/ubuntu2004/Android/Sdk/cmake/3.18.1/bin/ninja \\\n  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/build/intermediates/cxx/Debug/6y576i1u/obj/armeabi-v7a \\\n  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/build/intermediates/cxx/Debug/6y576i1u/obj/armeabi-v7a \\\n  -DCMAKE_BUILD_TYPE\u003dDebug \\\n  -B/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a \\\n  -GNinja \\\n  -DANDROID_STL\u003dc++_shared\n",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1047628153
+  },
+  {
+    "level_": 0,
+    "message_": "Exiting generation of /home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a/compile_commands.json.bin normally",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1379684301
+  },
+  {
+    "level_": 0,
+    "message_": "done executing cmake",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1163893148
+  },
+  {
+    "level_": 0,
+    "message_": "write command file /home/ubuntu2004/ROBOMI/robomi_frontend/opencv/.cxx/Debug/6y576i1u/armeabi-v7a/metadata_generation_command.txt",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1396546963
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed without problems",
+    "file_": "/home/ubuntu2004/ROBOMI/robomi_frontend/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1193001064
+  }
+]

@@ -10,50 +10,92 @@
         android:padding="30dp"
         android:gravity="center">
 
+        <!-- 상단 레이아웃 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="순찰 시작"
+                android:id="@+id/btnRobot"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginBottom="16dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="알림"
-                android:id="@+id/btnMsg"/>
+                android:id="@+id/btnMsg"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginBottom="16dp"/>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="실시간 영상보기"
-                android:id="@+id/btnVideo"/>
+                android:id="@+id/btnVideo"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_blue_button"
+                android:layout_marginBottom="16dp"/>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="로봇위치보기"
-                android:id="@+id/btnLocation"/>
+                android:id="@+id/btnLocation"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_blue_button"/>
 
         </LinearLayout>
+
+        <!-- 하단 레이아웃 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="관리자 등록"
-                android:id="@+id/btnRegist"/>
+                android:id="@+id/btnRegist"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_green_button"
+                android:layout_marginBottom="16dp"/>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="전시물 등록"
-                android:id="@+id/btnObject"/>
+                android:id="@+id/btnObject"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_green_button"
+                android:layout_marginBottom="16dp"/>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="로그아웃"
-                android:id="@+id/btnLogout"/>
+                android:id="@+id/btnLogout"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_green_button"/>
+
         </LinearLayout>
 
     </LinearLayout>
