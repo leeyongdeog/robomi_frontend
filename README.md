@@ -32,8 +32,10 @@
 
 ---
 
-** Base Code 05-31 **
-화면
+### Base Code 05-31 기준
+
+화면 분류 기준
+
 - 메인 화면
     - 로그인
     - 관리자 로그인
@@ -55,4 +57,17 @@
     - 촬영 버튼(버튼만)
     - 이름입력
     - 등록 버튼(버튼만)
+
+---
+
+### 서버 ip 변경 시 변경되는 파일 목록
+
+```
+	modified:   app/build.gradle
+	modified:   app/src/main/java/com/robomi/robomifront/MyApplication.java
+	modified:   app/src/main/java/com/robomi/robomifront/VideoActivity.java
+```
+
+
+ 
 
