@@ -44,7 +44,8 @@ public class MyApplication extends Application implements WebsocketMessageListen
     private List<ManagerData> managerList;
     private MessageWebsocketHandler msgWsHandler;
 //    private String messageWsUrl = "ws://54.180.210.34:8080/msg";
-    private String messageWsUrl = "ws://192.168.123.122:8080/msg";
+//    private String messageWsUrl = "ws://192.168.123.122:8080/msg";
+    private String messageWsUrl = "ws://192.168.0.223:8080/msg";
 
     public MessageWebsocketHandler getMsgWsHandler(){
         return msgWsHandler;

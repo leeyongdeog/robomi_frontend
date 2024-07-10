@@ -39,8 +39,10 @@ public class VideoActivity extends AppCompatActivity {
     private boolean isSendSound = false;
 
 
-    private static final String wsVideoPath = "ws://192.168.123.122:8080/video";
-    private static final String wsAudioPath = "ws://192.168.123.122:8080/audio";
+    private static final String wsVideoPath = "ws://192.168.0.223:8080/video";
+    private static final String wsAudioPath = "ws://192.168.0.223:8080/audio";
+//    private static final String wsVideoPath = "ws://192.168.123.122:8080/video";
+//    private static final String wsAudioPath = "ws://192.168.123.122:8080/audio";
 //    private static final String wsVideoPath = "ws://54.180.210.34:8080/video";
 //    private static final String wsAudioPath = "ws://54.180.210.34:8080/audio";
 
